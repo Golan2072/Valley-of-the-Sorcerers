@@ -5,18 +5,19 @@ import utility
 class Scene:
     def __init__(self, number):
         self.number = number
+        self.type = "Room"
         self.default_state = True
-        self.description = ""
-        self.alternative_description = ""
+        self.description = "PLACEHOLDER"
+        self.alternative_description = "PLACEHOLDER2"
         self.default_choices = {}
         self.alternative_choices = {}
         self.content = []
 
     def describe(self):
         if self.default_state:
-            print(f"{self.description} \n")
+            print(f"{self.description}")
         elif not self.default_state:
-            print(f"{self.alternative_description} \n")
+            print(f"{self.alternative_description}")
         else:
             print (f"\n")
     

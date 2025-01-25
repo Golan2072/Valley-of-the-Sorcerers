@@ -6,15 +6,17 @@
         "combat_skill": 0,
         "weapon": "None",
         "currency": 0,
-        "xp": 0
+        "xp": 0,
+        "description": "None"
     },
-        "rat": {
-            "name": "Rat",
+        "velociraptor": {
+            "name": "Velociraptor",
             "stamina": 3,
             "armor": "None",
             "combat_skill": 0,
             "weapon": "Teeth",
-            "currency": 1,
-            "xp": 1
+            "currency": 0,
+            "xp": 1,
+            "description": "A small carnivorous dinosaur."
         }
 }

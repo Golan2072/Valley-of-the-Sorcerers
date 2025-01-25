@@ -22,6 +22,7 @@ class Game:
             self.item_dict[self.item_source_dict[item]["name"]].damage = (self.item_source_dict[item]["damage"]["number"], self.item_source_dict[item]["damage"]["sides"])
             self.item_dict[self.item_source_dict[item]["name"]].itemtype = self.item_source_dict[item]["itemtype"]
             self.item_dict[self.item_source_dict[item]["name"]].protection = self.item_source_dict[item]["protection"]
+            self.item_dict[self.item_source_dict[item]["name"]].description = self.item_source_dict[item]["description"]
             if self.item_source_dict[item]["equippable"] == "True":
                self.item_dict[self.item_source_dict[item]["name"]].equippable = True
             elif self.item_source_dict[item]["equippable"] == "False":
@@ -38,6 +39,8 @@ class Game:
             self.mobs_dict[self.mobs_source_dict[mob]["name"]].weapon =  self.item_dict[self.mobs_source_dict[mob]["weapon"]]
             self.mobs_dict[self.mobs_source_dict[mob]["name"]].currency = self.mobs_source_dict[mob]["currency"]
             self.mobs_dict[self.mobs_source_dict[mob]["name"]].xp = self.mobs_source_dict[mob]["xp"]
+            self.mobs_dict[self.mobs_source_dict[mob]["name"]].description = self.mobs_source_dict[mob]["description"]
+        self.avatar = player.Player(self.item_dict)
 
 
 def combat(mob, player):
@@ -95,10 +98,4 @@ def combat(mob, player):
 
 if __name__ == "__main__":
     game = Game()
-    avatar = player.Player(game.item_dict)
-    avatar.armor = game.item_dict["None"]
-    avatar.weapon = game.item_dict["Chainsword"]
-    avatar.currency = 25
-    combat(game.mobs_dict["Rat"], avatar)
-    print(avatar.xp_gained)
-    print(avatar.currency)
+    combat(game.mobs_dict["Velociraptor"], game.avatar)

@@ -24,7 +24,7 @@ class Player (mobs.Mob):
         self.rations = 0
         self.xp_gained = 0
         self.level = 1
-        self.weapon = item_dict["None"]
+        self.weapon = item_dict["Fists"]
         self.location = 0
         with open("Data/settings.json", "r") as setting_file:
             self.settings = json.load(setting_file)

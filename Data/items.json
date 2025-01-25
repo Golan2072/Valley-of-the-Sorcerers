@@ -8,18 +8,32 @@
         },
         "itemtype": "None",
         "equippable": "False",
-        "protection": 0
+        "protection": 0,
+        "description": "None"
     },
-    "chainsword": {
-        "name": "Chainsword",
+    "cutlass": {
+        "name": "Cutlass",
         "price": 10,
         "damage": {
-            "number": 2,
+            "number": 1,
             "sides": 6
         },
         "itemtype": "Weapon",
         "equippable": "True",
-        "protection": 0
+        "protection": 0,
+        "description": "A curved sailor's sword."
+    },
+    "fists": {
+        "name": "Fists",
+        "price": 0,
+        "damage": {
+            "number": 1,
+            "sides": 3
+        },
+        "itemtype": "Weapon",
+        "equippable": "True",
+        "protection": 0,
+        "description": "Yout trusty fists!"
     },
     "teeth": {
         "name": "Teeth",
@@ -30,7 +44,8 @@
         },
         "itemtype": "Weapon",
         "equippable": "True",
-        "protection": 0
+        "protection": 0,
+        "description": "The teeth of a small carnovire."
     },
     "ration": {
         "name": "Ration",
@@ -41,10 +56,11 @@
         },
         "itemtype": "Ration",
         "equippable": "False",
-        "protection": 0
+        "protection": 0,
+        "description": "A prepared ration of preserved food."
     },
-    "leather jacket": {
-        "name": "Leather Jacket",
+    "leather armor": {
+        "name": "Leather Armor",
         "price": 30,
         "damage": {
             "number": 0,
@@ -52,5 +68,7 @@
         },
         "itemtype": "Armor",
         "equippable": "True",
-        "protection": 3}
+        "protection": 3,
+        "description": "A simple suit of armor made from dinosaur leather."
+    }
 }

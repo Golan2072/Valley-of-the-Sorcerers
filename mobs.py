@@ -6,12 +6,13 @@ class Mob:
     def __init__(self, item_dict):
         self.name = "Default"
         self.alive = True
-        self.stamina = 14
+        self.stamina = 1
         self.armor = item_dict["None"]
         self.combat_skill = 0
         self.weapon = item_dict["None"]
         self.currency = 0
-        self.xp = 1
+        self.description = "Default"
+        self.xp = 0
     
     def set_max_stamina(self):
         self.max_stamina = 14 + 3 * self.physical_skill
