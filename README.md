@@ -1,5 +1,5 @@
-# pyscavenger
-Data-driven post-apocalyptic text adventure/RPG
+# Forsaken Islands
+Data-driven gonzo-fantasy text adventure/RPG
 
 v0.02 - January 25th, 2025
 Basic combat system code implemented!
