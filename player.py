@@ -4,13 +4,12 @@ import utility
 import mobs
 import items
 import json
-import main
 
-class Player:
+class Player (mobs.Mob):
     def __init__(self, item_dict):
         self.item_dict = item_dict
-        self.name = ""
-        self.alive = True
+        super().__init__(self.item_dict)
+        self.name = "Avatar"
         self.max_stamina = 14
         self.stamina = 14
         self.charclass = "Fighter"
@@ -23,51 +22,12 @@ class Player:
         self.knowledge_skill = 0
         self.inventory = {}
         self.rations = 0
-        self.currency = 0
+        self.xp_gained = 0
+        self.level = 1
         self.weapon = item_dict["None"]
-        self.armor = item_dict["None"]
         self.location = 0
         with open("Data/settings.json", "r") as setting_file:
             self.settings = json.load(setting_file)
-
-    def set_max_stamina(self):
-        self.max_stamina = 14 + 3 * self.physical_skill
-    
-    def injury(self, incoming_damage):
-        damage = incoming_damage - self.armor.protection
-        if damage <= 0:
-            print(f"Your armor absorbed {incoming_damage} points of damage! No damage caused!")
-        elif damage > 0:
-            self.stamina -= int(damage)
-            if self.armor.protection > 0:
-                print(f"You suffered {damage} points of damage; your armor absorbed {self.armor.protection} points of damage!")
-            else:
-                print(f"You suffered {damage} points of damage.")
-        else:
-            pass
-        if self.stamina <= 0:
-            self.alive = False
-            print("You died - GAME OVER")
-        else:
-            pass
-    
-    def healing(self, healed_amount):
-        new_stamina = healed_amount + self.stamina
-        if new_stamina >= self.max_stamina:
-            limited_healing = self.max_stamina - self.stamina
-            self.stamina = self.max_stamina
-            print(f"{limited_healing} Stamina points healed.\n")
-        else:
-            self.stamina += healed_amount
-            print (f"{healed_amount} Stamina points healed.")
-
-    def move(self, destination):
-        self.location = int(destination)
-
-    def attack(self, mob):
-        attack_roll = utility.dice(2,6) + self.combat_skill
-        if attack_roll >= mob.defense:
-            mob.injury(utility.dice(self.weapon.damage[0], self.weapon.damage[1]))
     
     def inventory_add(self, item):  #item is an item object from items.py
         if item in self.inventory.keys():
@@ -117,5 +77,45 @@ class Player:
             old_weapon = self.weapon.name
             self.weapon = weapon
             print(f"{old_weapon} unequipped; {self.weapon.name} equipped!")
+        else:
+            pass
+    
+    def equip_armor(self, armor): #armor is an item object from items.py
+        if self.armor == self.item_dict["None"]:
+            self.armor = armor
+            print(f"{self.armor.name} equipped!")
+        elif self.armor != self.item_dict["None"]:
+            old_armor = self.armor.name
+            self.armor = armor
+            print(f"{old_armor} unequipped; {self.armor.name} equipped!")
+        else:
+            pass
+
+    def gain_xp(self, xp):
+        self.xp_gained += xp
+        level_dict = {2: 2000, 3: 4000, 4: 8000, 5: 16000, 6: 32000, 7: 64000, 8: 128000, 9: 256000, 10: 512000}
+        print(f"{xp} Experience gained! Total Experience {self.xp_gained}")
+        if self.level in range (0, 9):
+            if self.xp_gained >= level_dict[self.level+1]:
+                self.level += 1
+                print(f"You have reached level {self.level}!")
+        else:
+            pass
+    
+    def injury(self, incoming_damage):
+        damage = incoming_damage - self.armor.protection
+        if damage <= 0:
+            print(f"Your armor absorbed {incoming_damage} points of damage! No damage caused!")
+        elif damage > 0:
+            self.stamina -= int(damage)
+            if self.armor.protection > 0:
+                print(f"You suffered {damage} points of damage; its armor absorbed {self.armor.protection} points of damage!")
+            else:
+                print(f"You suffered {damage} points of damage.")
+        else:
+            pass
+        if self.stamina <= 0:
+            self.alive = False
+            print(f"You were killed! Game Over!")
         else:
             pass

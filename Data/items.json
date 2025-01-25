@@ -21,6 +21,17 @@
         "equippable": "True",
         "protection": 0
     },
+    "teeth": {
+        "name": "Teeth",
+        "price": 0,
+        "damage": {
+            "number": 1,
+            "sides": 3
+        },
+        "itemtype": "Weapon",
+        "equippable": "True",
+        "protection": 0
+    },
     "ration": {
         "name": "Ration",
         "price": 1,
