@@ -1,0 +1,45 @@
+{
+    "none": {
+        "name": "None",
+        "price": 0,
+        "damage": {
+            "number": 0,
+            "sides": 0
+        },
+        "itemtype": "None",
+        "equippable": "False",
+        "protection": 0
+    },
+    "chainsword": {
+        "name": "Chainsword",
+        "price": 10,
+        "damage": {
+            "number": 2,
+            "sides": 6
+        },
+        "itemtype": "Weapon",
+        "equippable": "True",
+        "protection": 0
+    },
+    "ration": {
+        "name": "Ration",
+        "price": 1,
+        "damage": {
+            "number": 0,
+            "sides": 0
+        },
+        "itemtype": "Ration",
+        "equippable": "False",
+        "protection": 0
+    },
+    "leather jacket": {
+        "name": "Leather Jacket",
+        "price": 30,
+        "damage": {
+            "number": 0,
+            "sides": 0
+        },
+        "itemtype": "Armor",
+        "equippable": "True",
+        "protection": 3}
+}
