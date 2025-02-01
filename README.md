@@ -1,5 +1,5 @@
-# Lost Isle
-Data-driven gonzo-fantasy text adventure/RPG
+# Valley of the Sorcerers
+Data-driven fantasy text adventure/RPG set in a tomb system inspired by the Valley of the KIngs
 
 v0.03
 A few code corrections done.
