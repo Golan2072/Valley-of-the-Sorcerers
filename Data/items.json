@@ -15,7 +15,7 @@
         "name": "Cutlass",
         "price": 10,
         "damage": {
-            "number": 1,
+            "number": 2,
             "sides": 6
         },
         "itemtype": "Weapon",
@@ -70,5 +70,41 @@
         "equippable": "True",
         "protection": 3,
         "description": "A simple suit of armor made from dinosaur leather."
+    },
+    "thick skin": {
+        "name": "Thick Skin",
+        "price": 0,
+        "damage": {
+            "number": 0,
+            "sides": 0
+        },
+        "itemtype": "Armor",
+        "equippable": "True",
+        "protection": 2,
+        "description": "Thick monstrous skin."
+    },
+    "clothes": {
+        "name": "Clothes",
+        "price": 0,
+        "damage": {
+            "number": 0,
+            "sides": 0
+        },
+        "itemtype": "Armor",
+        "equippable": "True",
+        "protection": 0,
+        "description": "Adventurer's clothing."
+    },
+    "claws": {
+        "name": "Claws",
+        "price": 0,
+        "damage": {
+            "number": 1,
+            "sides": 6
+        },
+        "itemtype": "Weapon",
+        "equippable": "True",
+        "protection": 0,
+        "description": "Sharp claws!"
     }
 }

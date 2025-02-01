@@ -1,11 +1,24 @@
 {
     "0": {
-        "number": 0,
+        "number": "0",
         "type": "Outdoor",
-        "default state": "True",
+        "default_state": "True",
         "description": "You are standing on a beach, among debries from your wrecked ship. There is a jungle path to the north.",
         "alternative_description": "You are standing on a beach, among debries from your wrecked ship. There is a jungle path to the north.",
     "choices": {
+        "1": {
+            "text": "Examine the debries",
+            "action": "description",
+            "key": "none",
+            "result": "These came from the ship you onced sailed onboard..."
+        },
+        "2": {
+            "text": "Exit to the North",
+            "action": "movement",
+            "key": "none",
+            "result": "1"
+        }
+    }, "alternative_choices": {
         "1": {
             "text": "Examine the debries",
             "action": "description",

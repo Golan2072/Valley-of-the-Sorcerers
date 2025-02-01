@@ -11,7 +11,14 @@ import json
 class Game:
     def __init__(self):
         with open("Data/settings.json", "r") as setting_file:
-            self.settings = json.load(setting_file)       
+            self.settings = json.load(setting_file)     
+        self.currency = self.settings["currency"]
+        self.load_items()
+        self.load_mobs()
+        self.load_scenes()
+        self.avatar = player.Player(self.item_dict)
+
+    def load_items(self):
         with open("Data/items.json", "r") as items_file:
             self.item_source_dict = json.load(items_file)
         self.item_dict = {}
@@ -27,6 +34,8 @@ class Game:
                self.item_dict[self.item_source_dict[item]["name"]].equippable = True
             elif self.item_source_dict[item]["equippable"] == "False":
                self.item_dict[self.item_source_dict[item]["name"]].equippable = False
+        
+    def load_mobs(self):
         self.mobs_dict = {}
         with open("Data/mobs.json", "r") as mobs_file:
             self.mobs_source_dict = json.load(mobs_file)
@@ -40,17 +49,38 @@ class Game:
             self.mobs_dict[self.mobs_source_dict[mob]["name"]].currency = self.mobs_source_dict[mob]["currency"]
             self.mobs_dict[self.mobs_source_dict[mob]["name"]].xp = self.mobs_source_dict[mob]["xp"]
             self.mobs_dict[self.mobs_source_dict[mob]["name"]].description = self.mobs_source_dict[mob]["description"]
-        self.avatar = player.Player(self.item_dict)
+            self.mobs_dict[self.mobs_source_dict[mob]["name"]].defense = self.mobs_source_dict[mob]["defense"]
+        
+    def load_scenes(self):
+        self.scenes_dict = {}
+        with open("Data/scenes.json") as scenes_file:
+            self.scenes_source_dict = json.load(scenes_file)
+        for scene in self.scenes_source_dict:
+            self.scenes_dict[self.scenes_source_dict[scene]["number"]] = scenes.Scene(self.item_dict)
+            self.scenes_dict[self.scenes_source_dict[scene]["number"]].number = self.scenes_source_dict[scene]["number"]
+            self.scenes_dict[self.scenes_source_dict[scene]["number"]].type = self.scenes_source_dict[scene]["type"]
+            if self.scenes_source_dict[scene]["default_state"] == "True":
+               self.scenes_dict[self.scenes_source_dict[scene]["number"]].default_state = True
+            elif self.scenes_source_dict[scene]["default_state"] == "False":
+               self.item_dict[self.scenes_source_dict[scene]["number"]].default_state = False
+            self.scenes_dict[self.scenes_source_dict[scene]["number"]].description = self.scenes_source_dict[scene]["description"]
+            self.scenes_dict[self.scenes_source_dict[scene]["number"]].alternative_description = self.scenes_source_dict[scene]["alternative_description"]
+            self.scenes_dict[self.scenes_source_dict[scene]["number"]].choices = self.scenes_source_dict[scene]["choices"]
+            self.scenes_dict[self.scenes_source_dict[scene]["number"]].alternative_choices = self.scenes_source_dict[scene]["alternative_choices"]
+            self.scenes_dict[self.scenes_source_dict[scene]["number"]].mobs = self.scenes_source_dict[scene]["mobs"]
+            self.scenes_dict[self.scenes_source_dict[scene]["number"]].contents = self.scenes_source_dict[scene]["contents"]
 
 
 def combat(mob, player):
-    print (f"{mob.name} attacks you! Prepare for battle!")
+    print (f"A {mob.name} attacks you! Prepare for battle!")
+    input("Press ENTER to continue")
     round = 1
     attack = False
     flee = False
     while True:
         utility.clear_screen()
-        print(f"Combat - Round {round}!")
+        print(f"Combat - Round {round}! You are fighting a {mob.name}")
+        print(f"You have {player.stamina} Stamina, {player.defense} Defense, {player.armor.protection} Protection, {player.xp} XP, and {player.currency} {game.currency}")
         while True:
             choice = input("What do you want to do? Enter A to attack, F to flee, X to exit game: ")
             if choice.lower() == "a":
@@ -66,8 +96,8 @@ def combat(mob, player):
             else:
                 print("Invalid choice, please re-enter your choice.")
         if attack:
-            player.attack(mob)
             mob.attack(player)
+            player.attack(mob)
             round +=1
             if player.alive and mob.alive:
                 input("Press ENTER to continue")
@@ -88,9 +118,12 @@ def combat(mob, player):
                 print (f"You rolled {evasion_roll} to evade!")
                 if evasion_roll >= 8:
                     print(f"You evaded the {mob.name}!")
+                    input("Press ENTER to continue")
                     break
                 else:
                     print(f"You failed to evade the {mob.name}!")
+                    mob.attack(player)
+                    input("Press ENTER to continue")
                     round +=1
         else:
             break
@@ -98,4 +131,7 @@ def combat(mob, player):
 
 if __name__ == "__main__":
     game = Game()
-    combat(game.mobs_dict["Velociraptor"], game.avatar)
+    game.avatar.weapon = game.item_dict["Cutlass"]
+    game.avatar.character_creation()
+    print(game.mobs_dict["Zombie"].name)
+    combat(game.mobs_dict["Zombie"], game.avatar)

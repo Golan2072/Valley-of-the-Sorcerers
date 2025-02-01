@@ -13,6 +13,7 @@ class Mob:
         self.currency = 0
         self.description = "Default"
         self.xp = 0
+        self.defense = 8
     
     def set_max_stamina(self):
         self.max_stamina = 14 + 3 * self.physical_skill
@@ -20,11 +21,11 @@ class Mob:
     def injury(self, incoming_damage):
         damage = incoming_damage - self.armor.protection
         if damage <= 0:
-            print(f"The {self.name}'s armor absorbed {incoming_damage} points of damage! No damage caused!")
+            print(f"{self.armor.name} absorbed {incoming_damage} points of damage! No damage caused!")
         elif damage > 0:
             self.stamina -= int(damage)
             if self.armor.protection > 0:
-                print(f"{self.name} suffered {damage} points of damage; its armor absorbed {self.armor.protection} points of damage!")
+                print(f"{self.name} suffered {damage} points of damage; {self.armor.name} absorbed {self.armor.protection} points of damage!")
             else:
                 print(f"{self.name} suffered {damage} points of damage.")
         else:
@@ -51,8 +52,8 @@ class Mob:
     def attack(self, mob):
         attack_roll = utility.dice(2,6) + self.combat_skill
         print(f"{self.name} rolled {attack_roll}!")
-        if attack_roll >= 8:
-            print(f"{self.name} hit the {mob.name}!")
+        if attack_roll >= mob.defense:
+            print(f"{self.name} hit the {mob.name} with {self.weapon.name}!")
             mob.injury(utility.dice(self.weapon.damage[0], self.weapon.damage[1]))
         else:
             print(f"{self.name} missed the {mob.name}!")

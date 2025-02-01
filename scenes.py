@@ -3,8 +3,8 @@
 import utility
 
 class Scene:
-    def __init__(self, number):
-        self.number = number
+    def __init__(self, items_dict):
+        self.number = 0
         self.type = "Room"
         self.default_state = True
         self.description = "PLACEHOLDER"

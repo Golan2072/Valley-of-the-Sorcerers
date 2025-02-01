@@ -12,7 +12,7 @@ class Player (mobs.Mob):
         self.name = "Avatar"
         self.max_stamina = 14
         self.stamina = 14
-        self.charclass = "Fighter"
+        self.charclass = "Warrior"
         self.combat_skill = 0
         self.physical_skill = 0
         self.survival_skill = 0
@@ -26,6 +26,7 @@ class Player (mobs.Mob):
         self.level = 1
         self.weapon = item_dict["Fists"]
         self.location = 0
+        self.defense = 8
         with open("Data/settings.json", "r") as setting_file:
             self.settings = json.load(setting_file)
     
@@ -109,13 +110,50 @@ class Player (mobs.Mob):
         elif damage > 0:
             self.stamina -= int(damage)
             if self.armor.protection > 0:
-                print(f"You suffered {damage} points of damage; its armor absorbed {self.armor.protection} points of damage!")
+                print(f"You suffered {damage} points of damage; your armor absorbed {self.armor.protection} points of damage!")
             else:
                 print(f"You suffered {damage} points of damage.")
         else:
             pass
         if self.stamina <= 0:
             self.alive = False
-            print(f"You were killed! Game Over!")
+            print(f"You were killed! Game Over! Press ENTER to exit!")
+            input()
+            quit()
         else:
             pass
+
+    def character_creation(self):
+        utility.clear_screen()
+        print("Welcome to the Valley of the Sorcerers!")
+        self.name = input("Please input your name: ")
+        print("Please choose your Archetype.")
+        print("Warrior: Combat 1, Physical 1")
+        print("Sorcerer: Knowledge 2")
+        print("Thief: Stealth 2")
+        while True:
+            charclass_choice = input("Please enter W for a Warrior, S for a Sorcerer, or T for a Thief: ")
+            if charclass_choice.lower() == "w":
+                self.charclass = "Warrior"
+                break
+            elif charclass_choice.lower() == "s":
+                self.charclass = "Sorcerer"
+                break
+            elif charclass_choice.lower() == "t":
+                self.charclass = "Thief"
+                break
+            else:
+                print("Invalid choice, press ENTER to continue")
+                input()
+                utility.clear_screen()
+        if self.charclass == "Warrior":
+            self.combat_skill = 1
+            self.physical_skill = 1
+            self.stamina = 17
+            self.defense = 9
+        elif self.charclass == "Sorcerer":
+            self.knowledge_skill = 2
+        elif self.charclass == "Thief":
+            self.stealth_skill = 2
+        print(f"You have chosen to play a {self.charclass}. You start with {self.stamina} Stamina. Press ENTER to continue.")
+        input()
